@@ -25,7 +25,7 @@
 
 总的来说，1Password 的密钥管理是分层级的。每次读取数据时，用户由自己掌握的 secret (Master password and/or Secret Key)
 生成出一个密钥，再由该密钥解锁下层密钥，最后解锁用户保存在Vault里的数据。如果自己同步数据，则数据按照 [OPVault][OPVault Design]
-标准存放。使用订阅功能，则数据由官方服务器在各设备间同步。其标准由 [1Password whitepaper][whitepaper] 描述。
+标准存放。使用订阅功能，则数据由 [1Password whitepaper][whitepaper] 所描述的方式在本地与1password.com间同步。
 
 存储数据的媒介有三种（Windows中可能有所不同）：
 
@@ -43,12 +43,13 @@
 ## 正文
 
 这里我们用 Python 来复现由 Master Password 解锁整个 OPVault 的过程。因为 Python 标准库支持 `sqlite3`, 
-因此选择 `OnePassword.sqlite` 作为切入点。对于 `profile.js`+ `band_<x>.js` 的文件，经测试可以同样解锁。详情见代码。
+因此选择 `OnePassword.sqlite` 作为切入点较为方便。
+对于 `profile.js`+ `band_<x>.js` 的文件，经测试可以同样解锁。详情见代码。
 
 需要的密码学算法有三个，分别承担了密钥推导、对称加密、数据校验的功能：
 
 1. PBKDF2-HMAC-SHA512: 用于由 Master Password 推导出两个密钥 (derivedKey.cryptoKey, derivedKey.hmacKey)，该密钥用作加密/解密及校验存储在 `profile` 中的 `master_key` 和 `overview_key`.
-2. HMAC-SHA256: 用于1. 中提到的校验。
+2. HMAC-SHA256: 用于1. 中提到的校验,以及其他任何需要校验的地方。
 3. AES256CBC: 用于对称加密所有需要加密的数据，包括用户数据和需要存储的密钥。
 
 整个解锁过程总结如下：
