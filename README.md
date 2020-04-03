@@ -8,13 +8,19 @@
     ~/Library/Group Container/2BUA8C4S2C.com.agilebits/Library/Application Support/1Password/Data/
     ```
 
-2. 测试脚本是否可以解锁
+2. 确保 [pycrypto][pycrypto] 已安装
 
     ```bash
-    python unlockOpVaultSqlite.py -p <path to OnePassword.sqlite> -n <number of items to reveal>
+    pip3 install pycrypto
     ```
 
-`-p` 默认值为(1)中的路径，`-n`的默认值为5.
+3. 测试脚本是否可以解锁
+
+    ```bash
+    python3 unlockOpVaultSqlite.py -p <path to OnePassword.sqlite> -n <number of items to reveal>
+    ```
+    
+    `-p` 默认值为(1)中的路径，`-n`的默认值为5.
 
 ## 概览
 
@@ -137,3 +143,4 @@ def decrypt_masterkey(keydata: bytes, derivedKey: DerivedKey):
 [OPVault Directory Layout]: https://support.1password.com/opvault-design/#directory-layout
 [opdata]: https://support.1password.com/opvault-design/#opdata01
 [whitepaper]: https://1password.com/files/1Password-White-Paper.pdf
+[pycrypto]: https://pypi.org/project/pycrypto/
