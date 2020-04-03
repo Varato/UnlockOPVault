@@ -5,7 +5,7 @@
 1. 定位 `OnePassword.sqlite`. 通常在
 
     ```bash
-    ~/Library/Group Container/2BUA8C4S2C.com.agilebits/Library/Application Support/1Password/Data/`
+    ~/Library/Group Container/2BUA8C4S2C.com.agilebits/Library/Application Support/1Password/Data/
     ```
 
 2. 测试脚本是否可以解锁
@@ -25,7 +25,7 @@
 
 总的来说，1Password 的密钥管理是分层级的。每次读取数据时，用户由自己掌握的 secret (Master password and/or Secret Key)
 生成出一个密钥，再由该密钥解锁下层密钥，最后解锁用户保存在Vault里的数据。如果自己同步数据，则数据按照 [OPVault][OPVault Design]
-标准存放。使用订阅功能，则数据由 [1Password whitepaper][whitepaper] 所描述的方式在本地与1password.com间同步。
+标准存放。使用订阅功能，则数据由 [1Password whitepaper][whitepaper] 所描述的方式在本地与 1password.com 间同步。
 
 存储数据的媒介有三种（Windows中可能有所不同）：
 
